@@ -1,0 +1,72 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:o="http://omnifaces.org/ui"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:b="http://bootsfaces.net/ui"
+>
+
+    <b:panel title="CurrentCasesByLocalGeographicArea Details"
+             collapsible="false"
+    >
+        <b:panelGrid columns="2" colSpans="2,10">
+            <h:panelGroup>
+                <strong><h:outputText value="longitude"/></strong>
+            </h:panelGroup>
+            <h:inputText value="87.16"/>
+            <h:panelGroup>
+                <strong><h:outputText value="latitude"/></strong>
+            </h:panelGroup>
+            <h:inputText value="133.28"/>
+
+            <h:panelGroup>
+                <strong><h:outputText value="Location"/></strong>
+            </h:panelGroup>
+            <h:outputText
+                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.location}"/>
+
+            <h:panelGroup>
+                <strong><h:outputText value="Total Cases"/></strong>
+            </h:panelGroup>
+            <h:outputText
+                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.totalCases}"/>
+
+
+            <h:panelGroup>
+                <strong><h:outputText value="Active Cases"/></strong>
+            </h:panelGroup>
+            <h:outputText
+                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.activeCases}"/>
+
+
+            <h:panelGroup>
+                <strong><h:outputText value="Recovered Cases"/></strong>
+            </h:panelGroup>
+            <h:outputText
+                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.recoveredCases}"/>
+
+
+            <h:panelGroup>
+                <strong><h:outputText value="Deaths"/></strong>
+            </h:panelGroup>
+            <h:outputText
+                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.deaths}"/>
+            <h:panelGroup>
+                <strong><h:outputText value="Polygon"/></strong>
+            </h:panelGroup>
+            <h:outputText
+                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.polygon}"/>
+
+
+        </b:panelGrid>
+
+    </b:panel>
+
+</ui:composition>

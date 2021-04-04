@@ -7,6 +7,8 @@ package dmit2015.wxue3.assignment05.ejb;
  * @lastModified   2021.04.02
  */
 import javax.annotation.Resource;
+import javax.batch.operations.JobOperator;
+import javax.batch.runtime.BatchRuntime;
 import javax.ejb.*;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -16,6 +18,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -25,17 +28,10 @@ public class AutomaticTimersBean {	// Also known as Calendar-Based Timers
 
 	private Logger _logger = Logger.getLogger(AutomaticTimersBean.class.getName());
 
-	/**
-	 * Assuming you have define the following entries in your web.xml file
-	 *     <env-entry>
-	 *         <env-entry-name>ca.dmit2015.config.SYSADMIN_EMAIL</env-entry-name>
-	 *         <env-entry-type>java.lang.String</env-entry-type>
-	 *         <env-entry-value>yourUsername@yourEmailServer</env-entry-value>
-	 *     </env-entry>
-	 */
-	@Resource(name="ca.dmit2015.config.SYSADMIN_EMAIL")
 
-	private void downloadCsv(Timer timer) {
+	@Resource(name="ca.dmit2015.config.DOWNLOAD")
+	private String location;
+	public void downloadCsv(Timer timer) {
 
 		HttpClient client = HttpClient.newHttpClient();
 		HashMap<String, String> info = (HashMap<String, String>) timer.getInfo();
@@ -49,18 +45,24 @@ public class AutomaticTimersBean {	// Also known as Calendar-Based Timers
 			HttpResponse<Path> response = client.send(request,
 					HttpResponse.BodyHandlers.ofFileDownload(downloadPath, StandardOpenOption.CREATE, StandardOpenOption.WRITE));
 			_logger.info("Finished download file to " + response.body());
+			String batchJobXmlFilename = location;
+			// Get the JobOperator from the BatchRuntime
+			JobOperator jobOperator = BatchRuntime.getJobOperator();
+			// Create a new job instance and start the first execution of that instance asynchronously.
+			long executionId = jobOperator.start(batchJobXmlFilename, null);
+			_logger.info("Successfully started batch job with executionId " + executionId);
 		} catch (Exception e) {
 			_logger.fine("Error downloading file. " + e.getMessage());
 			e.printStackTrace();
 		}
 
+
+
 	}
 
 
-	@Schedules({
-		@Schedule(second = "0", minute ="00", hour = "16", dayOfWeek = "Mon,Tue,Wed,Thu,Fri", month = "Jan-Dec", year = "2021-2030", persistent = false),
-			@Schedule(second = "0", minute ="00", hour = "2", dayOfWeek = "Mon,Tue,Wed,Thu,Fri", month = "Jan-Dec", year = "2021-2030", persistent = false),
-		})
+
+	@Schedule(second = "0", minute ="00", hour = "16", dayOfWeek = "Mon,Tue,Wed,Thu,Fri", month = "Jan-Dec", year = "2021-2030", persistent = false)
 	public void downloadCsvToLocalMachine(Timer timer) {
 		downloadCsv(timer);
 	}

@@ -1,5 +1,11 @@
 package dmit2015.wxue3.assignment05.ejb;
-
+/**
+ * This is an EJB that can be use to get a list of times, cancel all timers or cancel a single timer
+ *
+ * @author  Wanlun Xue
+ * @version 1.0
+ * @lastModified   2021.04.03
+ */
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.Timer;
