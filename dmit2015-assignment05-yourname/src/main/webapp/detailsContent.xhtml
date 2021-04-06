@@ -11,62 +11,86 @@
         xmlns:of="http://omnifaces.org/functions"
         xmlns:p="http://primefaces.org/ui"
         xmlns:b="http://bootsfaces.net/ui"
+        template="/WEB-INF/jsf-templates/layout.xhtml"
 >
+    <ui:param name="title" value="CurrentCasesByLocalGeographicArea Details"/>
 
-    <b:panel title="CurrentCasesByLocalGeographicArea Details"
-             collapsible="false"
-    >
-        <b:panelGrid columns="2" colSpans="2,10">
-            <h:panelGroup>
-                <strong><h:outputText value="longitude"/></strong>
-            </h:panelGroup>
-            <h:inputText value="87.16"/>
-            <h:panelGroup>
-                <strong><h:outputText value="latitude"/></strong>
-            </h:panelGroup>
-            <h:inputText value="133.28"/>
+    <ui:define name="maincontent">
 
-            <h:panelGroup>
-                <strong><h:outputText value="Location"/></strong>
-            </h:panelGroup>
-            <h:outputText
-                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.location}"/>
+        <b:jumbotron>
+            <h1>See current result by location</h1>
+        </b:jumbotron>
 
-            <h:panelGroup>
-                <strong><h:outputText value="Total Cases"/></strong>
-            </h:panelGroup>
-            <h:outputText
-                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.totalCases}"/>
+        <b:messages id="messages"/>
 
+        <c:if test="#{not empty currentCurrentCasesByLocalGeographicAreaFindOneController.existingCurrentCasesByLocalGeographicArea}">
 
-            <h:panelGroup>
-                <strong><h:outputText value="Active Cases"/></strong>
-            </h:panelGroup>
-            <h:outputText
-                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.activeCases}"/>
+            <b:panelGrid columns="2" colSpans="2,10">
+
+                <h:panelGroup>
+                    <strong><h:outputText value="Location"/></strong>
+                </h:panelGroup>
+                <h:outputText
+                        value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.existingCurrentCasesByLocalGeographicArea.location}"/>
+
+                <h:panelGroup>
+                    <strong><h:outputText value="Total Cases"/></strong>
+                </h:panelGroup>
+                <h:outputText
+                        value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.existingCurrentCasesByLocalGeographicArea.totalCases}"/>
 
 
-            <h:panelGroup>
-                <strong><h:outputText value="Recovered Cases"/></strong>
-            </h:panelGroup>
-            <h:outputText
-                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.recoveredCases}"/>
+                <h:panelGroup>
+                    <strong><h:outputText value="Active Cases"/></strong>
+                </h:panelGroup>
+                <h:outputText
+                        value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.existingCurrentCasesByLocalGeographicArea.activeCases}"/>
 
 
-            <h:panelGroup>
-                <strong><h:outputText value="Deaths"/></strong>
-            </h:panelGroup>
-            <h:outputText
-                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.deaths}"/>
-            <h:panelGroup>
-                <strong><h:outputText value="Polygon"/></strong>
-            </h:panelGroup>
-            <h:outputText
-                    value="#{currentCurrentCasesByLocalGeographicAreaEditController.existingCurrentCasesByLocalGeographicArea.polygon}"/>
+                <h:panelGroup>
+                    <strong><h:outputText value="Recovered Cases"/></strong>
+                </h:panelGroup>
+                <h:outputText
+                        value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.existingCurrentCasesByLocalGeographicArea.recoveredCases}"/>
 
 
-        </b:panelGrid>
+                <h:panelGroup>
+                    <strong><h:outputText value="Deaths"/></strong>
+                </h:panelGroup>
+                <h:outputText
+                        value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.existingCurrentCasesByLocalGeographicArea.deaths}"/>
 
-    </b:panel>
+            </b:panelGrid>
+
+        </c:if>
+
+        <b:form id="form1" inline="true">
+            <b:inputText
+                    id="latitude"
+                    label="Latitude"
+                    value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.latitude}"
+            />
+            <b:inputText
+                    id="longitude"
+                    label="Longitude"
+                    value="#{currentCurrentCasesByLocalGeographicAreaFindOneController.longitude}"
+            />
+            <b:commandButton
+                    value="Search"
+                    action="#{currentCurrentCasesByLocalGeographicAreaFindOneController.onSearch}"
+                    ajax="false"
+                    look="primary"
+                    iconAwesome="Search"
+            />
+
+            <b:commandButton
+                    value="Clear"
+                    action="#{currentCurrentCasesByLocalGeographicAreaFindOneController.onClear}"
+                    ajax="false"
+                    iconAwesome="erase"
+            />
+        </b:form>
+
+    </ui:define>
 
 </ui:composition>

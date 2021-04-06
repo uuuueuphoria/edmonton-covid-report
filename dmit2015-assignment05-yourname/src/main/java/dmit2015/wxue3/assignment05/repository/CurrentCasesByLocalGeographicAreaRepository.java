@@ -18,6 +18,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import java.util.Optional;
+
 import static org.geolatte.geom.crs.CoordinateReferenceSystems.WGS84;
 
 @ApplicationScoped
@@ -28,12 +30,22 @@ public class CurrentCasesByLocalGeographicAreaRepository extends AbstractJpaRepo
         super(CurrentCasesByLocalGeographicArea.class);
     }
 
-    public CurrentCasesByLocalGeographicArea contains(double longitude, double latitude) {
-        String jpql = "SELECT a FROM CurrentCasesByLocalGeographicArea a WHERE contains(a.polygon, :pointValue) = true";
+
+    public Optional<CurrentCasesByLocalGeographicArea> contains(double longitude, double latitude) {
+        Optional<CurrentCasesByLocalGeographicArea> optionalSingleResult = Optional.empty();
+
+        final String jpql = "SELECT a FROM CurrentCasesByLocalGeographicArea a WHERE contains(a.polygon, :pointValue) = true";
         TypedQuery<CurrentCasesByLocalGeographicArea> query = getEntityManager().createQuery(jpql, CurrentCasesByLocalGeographicArea.class);
         Point<G2D> point = DSL.point(WGS84, DSL.g(longitude, latitude));
         query.setParameter("pointValue", point);
-        return query.getSingleResult();
+        try {
+            CurrentCasesByLocalGeographicArea singleResult = query.getSingleResult();
+            optionalSingleResult = Optional.of(singleResult);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return optionalSingleResult;
     }
 
 }

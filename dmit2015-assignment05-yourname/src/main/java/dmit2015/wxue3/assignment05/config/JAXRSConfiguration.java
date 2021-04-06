@@ -1,9 +1,9 @@
-package ca.nait.dmit;
+package dmit2015.wxue3.assignment05.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("resources")
+@ApplicationPath("webapi")
 public class JAXRSConfiguration extends Application {
 
 }
