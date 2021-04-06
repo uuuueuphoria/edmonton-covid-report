@@ -1,6 +1,6 @@
 package dmit2015.wxue3.assignment05.resource;
 /**
- * This is a JAX-RS class, use to test the contains method
+ * This is a JAX-RS class, use curl method to test the list method and contains method
  *
  * @author  Wanlun Xue
  * @version 1.0

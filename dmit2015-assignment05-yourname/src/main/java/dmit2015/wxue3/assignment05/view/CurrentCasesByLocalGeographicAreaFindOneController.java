@@ -1,5 +1,11 @@
 package dmit2015.wxue3.assignment05.view;
-
+/**
+ * This is the find controller class, which called the contains function of the repository to get data for specific location
+ *
+ * @author  Wanlun Xue
+ * @version 1.0
+ * @lastModified   2021.04.06
+ */
 import dmit2015.wxue3.assignment05.entity.CurrentCasesByLocalGeographicArea;
 import dmit2015.wxue3.assignment05.repository.CurrentCasesByLocalGeographicAreaRepository;
 import lombok.Getter;
