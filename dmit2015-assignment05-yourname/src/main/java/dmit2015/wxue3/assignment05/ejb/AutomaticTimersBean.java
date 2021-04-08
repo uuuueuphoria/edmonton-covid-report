@@ -30,7 +30,7 @@ public class AutomaticTimersBean {	// Also known as Calendar-Based Timers
 
 
 	@Resource(name="ca.dmit2015.config.DOWNLOAD")
-	private String location;
+	private String csvFilelName;
 	public void downloadCsv(Timer timer) {
 
 		HttpClient client = HttpClient.newHttpClient();
@@ -45,7 +45,7 @@ public class AutomaticTimersBean {	// Also known as Calendar-Based Timers
 			HttpResponse<Path> response = client.send(request,
 					HttpResponse.BodyHandlers.ofFileDownload(downloadPath, StandardOpenOption.CREATE, StandardOpenOption.WRITE));
 			_logger.info("Finished download file to " + response.body());
-			String batchJobXmlFilename = location;
+			String batchJobXmlFilename = csvFilelName;
 			// Get the JobOperator from the BatchRuntime
 			JobOperator jobOperator = BatchRuntime.getJobOperator();
 			// Create a new job instance and start the first execution of that instance asynchronously.
